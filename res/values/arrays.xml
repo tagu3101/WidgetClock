@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="battery_level_name">
+        <item>40%</item>
+        <item>30%</item>
+        <item>20%</item>
+        <item>10%</item>
+        <item>0%</item>
+    </string-array>
+    <string-array name="battery_level_value">
+        <item>40</item>
+        <item>30</item>
+        <item>20</item>
+        <item>10</item>
+        <item>0</item>
+    </string-array>
+    
+    <string-array name="calendar_turnover_name">
+        <item>1日（月替りと同時にめくる）</item>
+        <item>2日</item>
+        <item>3日</item>
+        <item>4日</item>
+        <item>5日</item>
+        <item>6日</item>
+        <item>7日</item>
+        </string-array>
+    <string-array name="calendar_turnover_value">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+    
+</resources>

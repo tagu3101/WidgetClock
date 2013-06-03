@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="動作設定(画面ON/OFFで反映)">
+        <CheckBoxPreference
+            android:key="conf_show_second"
+            android:title="秒を表示"
+            android:summary="秒表示は画面ONの時のみ更新(選択不可)"
+            />
+        <CheckBoxPreference
+            android:key="conf_show_screenoff"
+            android:title="画面OFFでも表示を更新"
+            android:summary="画面OFFでも毎分の更新を続ける(秒表示はしない)"
+            />
+        
+        <ListPreference
+            android:key="conf_show_sec_battery"
+            android:title="秒表示を停止するバッテリ残量"
+            android:summary=""
+            android:entries="@array/battery_level_name"
+            android:entryValues="@array/battery_level_value"
+            />
+        
+        <ListPreference
+            android:key="conf_calendar_turnover_day"
+            android:title="カレンダーを翌月にめくる日"
+            android:summary=""
+            android:entries="@array/calendar_turnover_name"
+            android:entryValues="@array/calendar_turnover_value"
+            />
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="祝日設定" >
+        <PreferenceScreen
+            android:title="祝日設定"
+            android:summary="カレンダーで祝日設定" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetPackage="jp.nighthawk.widgetclock"
+                android:targetClass="jp.nighthawk.widgetclock.WidgetClockConfigCalendar" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+</PreferenceScreen>

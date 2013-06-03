@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="app_name">WidgetClock</string>
+    <string name="app_name_config">WidgetClock設定</string>
+    <string name="app_name_config_calendar">祝日設定</string>
+    
+    <string name="action_settings">Settings</string>
+
+</resources>
