@@ -23,7 +23,6 @@ public class WidgetClockConfigCalendar extends Activity {
 		@Override
 		public void onSelectedDayChange(CalendarView view, int year, int month,
 				int dayOfMonth) {
-			// TODO Auto-generated method stub
 			
 //			Toast.makeText(getBaseContext(),"Selected Date is\n\n"
 //				+dayOfMonth+" : "+month+" : "+year , 

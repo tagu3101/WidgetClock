@@ -43,6 +43,7 @@ public class WidgetClockProvider extends AppWidgetProvider {
 	private static final String PREFERENCE_STAT_BATTERY_LEVEL = "stat_battery_level";
 	private static final String PREFERENCE_STAT_SCREEN_ON = "stat_screen_on";
 	private static final String PREFERENCE_STAT_LASTDATE = "stat_last_date";
+	private static final String PREFERENCE_HOLIDAY_PREFIX = "conf_holiday_";
 
 	
 	//----------------------------------------------------------

@@ -1,5 +1,9 @@
 package jp.nighthawk.widgetclock;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -9,6 +13,10 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.content.SharedPreferences;
+import android.preference.PreferenceScreen;
+import android.preference.PreferenceCategory;
+import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 
 // Activity の代わりに、PreferenceActivity を継承
 public class WidgetClockConfig extends PreferenceActivity {
@@ -24,7 +32,8 @@ public class WidgetClockConfig extends PreferenceActivity {
 	private static final String PREFERENCE_STAT_BATTERY_LEVEL = "stat_battery_level";
 	private static final String PREFERENCE_STAT_SCREEN_ON = "stat_screen_on";
 	private static final String PREFERENCE_STAT_LASTDATE = "stat_last_date";
-
+	private static final String PREFERENCE_HOLIDAY_PREFIX = "conf_holiday_";
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,13 +44,44 @@ public class WidgetClockConfig extends PreferenceActivity {
 		prefMgr.setSharedPreferencesName(PREFERENCE_NAME);
 		
 		// 定義した設定項目XMLを読み込む
+		setContentView(R.layout.config_linear);
 		addPreferencesFromResource(R.xml.widget_clock_config);
 
+		
 		// Summaryの動的な部分を設定
 		String msg = "設定値: " + getPreferenceScreen().getSharedPreferences().getString(PREFERENCE_CONF_SHOW_SEC_BATTERY, "0") + "％";
 		findPreference(PREFERENCE_CONF_SHOW_SEC_BATTERY).setSummary(msg);
 		msg = "設定値: " + getPreferenceScreen().getSharedPreferences().getString(PREFERENCE_CONF_CALENDAR_TURNOVER_DAY, "0") + "日";
 		findPreference(PREFERENCE_CONF_CALENDAR_TURNOVER_DAY).setSummary(msg);
+		
+		// 祝日部分表示
+		Calendar now = Calendar.getInstance();
+		int this_year = now.get(now.YEAR);          //年を取得
+		PreferenceCategory myCategory = (PreferenceCategory) findPreference("holiday_category");
+		myCategory.setTitle("祝日設定 (" + this_year + "-" + (this_year + 1) + ")");
+	    CheckBoxPreference cb1 = null;
+	    
+	    // ためし
+	    PreferenceScreen ps1 = prefMgr.createPreferenceScreen(this);
+		myCategory.addPreference(ps1);
+		ps1.setTitle("yyyy/MM/dd");
+		ps1.setSummary("説明説明説明");
+	    
+		//myCategory.removePreference(ps1);
+		
+		for(int y: new int[]{this_year, this_year+1}){
+			Holiday holday = new Holiday(y);
+			Date[] ary = holday.listHoliDays();
+			for(int i=0;i < ary.length;i++){
+			    cb1 = new CheckBoxPreference(this);
+				cb1.setKey("conf_holiday_" + new SimpleDateFormat("yyyyMMdd").format(ary[i]));
+				cb1.setTitle(new SimpleDateFormat("yyyy/MM/dd").format(ary[i]));
+				cb1.setSummary(Holiday.queryHoliday(ary[i]));
+				cb1.setDefaultValue(true);
+				myCategory.addPreference(cb1);
+			}
+		}
+
 	}
 	
 	@Override  
@@ -69,8 +109,9 @@ public class WidgetClockConfig extends PreferenceActivity {
 			}else if(key.equals(PREFERENCE_CONF_CALENDAR_TURNOVER_DAY)){
 				msg = "設定値: " + getPreferenceScreen().getSharedPreferences().getString(PREFERENCE_CONF_CALENDAR_TURNOVER_DAY, "1") + "日";
 				findPreference(PREFERENCE_CONF_CALENDAR_TURNOVER_DAY).setSummary(msg);
+			}else if(key.startsWith(PREFERENCE_HOLIDAY_PREFIX)){
+				
 			}
-
 	    }  
 	};  
 
